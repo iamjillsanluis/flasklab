@@ -130,3 +130,5 @@ dmypy.json
 
 # My IDE
 .idea/
+
+openapi/output/
