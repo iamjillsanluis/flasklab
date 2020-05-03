@@ -1,10 +1,11 @@
 from typing import List
 
-from flask import request, abort
+from flask import abort
 from flask.views import MethodView
 from pydantic import BaseModel
 
 from seventh.flask.formatters import response_json
+from seventh.flask.parsers import request_as
 from seventh.identities.models import Identity
 
 
@@ -34,7 +35,7 @@ class IdentitiesApi(MethodView):
         self._identity_repository = identity_repository
 
     def post(self) -> BaseModel:
-        identity = Identity(**request.json)
+        identity = request_as(Identity)
         self._identity_repository.add(identity)
         return identity
 
