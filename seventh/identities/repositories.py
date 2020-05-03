@@ -12,7 +12,7 @@ class IdentityRepository(object):
             Identity(guid="1000-d", name="Lisa Simpson", created_at=datetime.now()),
             Identity(guid="1000-e", name="Maggie Simpson", created_at=datetime.now()),
         ]
-        self._cache = { x.guid: x for x in seed }
+        self._cache = {x.guid: x for x in seed}
 
     def add(self, identity):
         if identity.guid not in self._cache:
