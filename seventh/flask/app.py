@@ -1,4 +1,5 @@
 from flask import Flask
+from seventh.identities.repositories import IdentityRepository
 
 
 def create_app():
@@ -6,9 +7,19 @@ def create_app():
 
     from seventh.flask.views.identities import IdentitiesApi, IdentityApi
 
+    identity_repository = IdentityRepository()
+
     app.add_url_rule(
-        "/identities/<identity_guid>", view_func=IdentityApi.as_view("identity")
+        "/identities/<identity_guid>",
+        view_func=IdentityApi.as_view(
+            "identity", identity_repository=identity_repository
+        ),
     )
-    app.add_url_rule("/identities", view_func=IdentitiesApi.as_view("identities"))
+    app.add_url_rule(
+        "/identities",
+        view_func=IdentitiesApi.as_view(
+            "identities", identity_repository=identity_repository
+        ),
+    )
 
     return app
