@@ -1,4 +1,6 @@
 from flask import Flask
+
+from seventh.flask.views.hooks import HooksApi
 from seventh.identities.repositories import IdentityRepository
 
 
@@ -20,6 +22,10 @@ def create_app():
         view_func=IdentitiesApi.as_view(
             "identities", identity_repository=identity_repository
         ),
+    )
+    app.add_url_rule(
+        "/hooks/<hook_guid>",
+        view_func=HooksApi.as_view("hooks"),
     )
 
     return app
